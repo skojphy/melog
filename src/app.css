@@ -1,40 +1,35 @@
 @import 'tailwindcss';
 @plugin "daisyui";
 
-/* ─ DaisyUI 커스텀 테마 ─ */
+/* ─ Melog 감성형 테마 (Soft & Warm) ─ */
 @plugin "daisyui/theme" {
 	name: 'melomance';
 	default: false;
 	prefersdark: false;
-	color-scheme: 'light'; /* ← 다크가 아니라 라이트 */
+	color-scheme: 'light';
 
-	/* 베이스: 라이트 아이보리 + 딥그린 포인트 */
-	--color-base-100: oklch(98% 0.01 160); /* #FAFBF9 */
-	--color-base-200: oklch(92% 0.02 160);
-	--color-base-300: oklch(84% 0.03 160);
-	--color-base-content: oklch(16% 0.03 160); /* 거의 블랙-그린 */
+	--color-base-100: oklch(97% 0.01 100); /* 따뜻한 크림 */
+	--color-base-200: oklch(93% 0.015 100); /* 부드러운 베이지 */
+	--color-base-300: oklch(88% 0.02 100); /* 엷은 카멜 */
+	--color-base-content: oklch(22% 0.03 50); /* 초코브라운 */
 
-	/* ✨ 딥그린 포인트 */
-	--color-primary: oklch(48% 0.13 150); /* #315B4D 느낌 */
-	--color-primary-content: oklch(98% 0.02 160);
+	--color-primary: oklch(78% 0.06 40); /* 파우더 핑크브라운 */
+	--color-primary-content: oklch(20% 0.03 40);
 
-	/* 보조 컬러는 톤다운 파스텔로 */
-	--color-secondary: oklch(68% 0.08 150);
-	--color-secondary-content: oklch(10% 0.02 160);
+	--color-secondary: oklch(75% 0.05 20); /* 모브 계열 (라벤더 + 베이지 느낌) */
+	--color-secondary-content: oklch(25% 0.02 20);
 
-	--color-accent: oklch(70% 0.06 180); /* 청록 가벼운 포인트 */
-	--color-accent-content: oklch(10% 0.01 180);
+	--color-accent: oklch(70% 0.07 70); /* 피넛버터 톤 */
+	--color-accent-content: oklch(20% 0.03 70);
 
-	/* 나머지는 유지하거나 살짝 조정 */
-	--color-neutral: oklch(40% 0.06 160);
-	--color-neutral-content: oklch(96% 0.02 160);
+	--color-neutral: oklch(45% 0.04 60); /* 차분한 머드 브라운 */
+	--color-neutral-content: oklch(96% 0.02 60);
 
-	--color-info: oklch(65% 0.1 230);
-	--color-success: oklch(70% 0.16 135);
-	--color-warning: oklch(78% 0.14 90);
-	--color-error: oklch(60% 0.18 30);
+	--color-info: oklch(70% 0.1 230);
+	--color-success: oklch(72% 0.13 140);
+	--color-warning: oklch(80% 0.11 90);
+	--color-error: oklch(62% 0.14 25);
 
-	/* 라운드·보더 등 커스텀 */
 	--radius-selector: 0.75rem;
 	--radius-field: 0.75rem;
 	--radius-box: 0.5rem;
