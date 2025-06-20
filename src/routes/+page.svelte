@@ -31,25 +31,33 @@
 
 <WriteModal open={showModal} onClose={() => (showModal = false)} />
 
-<div class="min-h-screen bg-base-100 text-base-content px-4 py-10 font-serif">
-	<header class="text-center mb-12">
-		<h1 class="text-5xl font-bold font-[PlayfairDisplay]">Melog</h1>
-		<p class="mt-2 text-lg italic text-secondary">멜로망스가 위로가 된 순간들</p>
+<div class="min-h-screen bg-base-100 text-base-content px-4 py-12 font-sans">
+	<!-- Header -->
+	<header class="text-center mb-16">
+		<h1 class="text-4xl md:text-5xl font-bold tracking-tight">Melog</h1>
+		<p class="mt-2 text-base md:text-lg text-primary italic">멜로망스가 위로가 된 순간들</p>
 	</header>
 
-	<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+	<!-- Cards -->
+	<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
 		{#each sampleStories as story}
-			<div class="card bg-base-200 shadow-md rounded-2xl h-full">
-				<div class="card-body">
-					<h2 class="card-title text-primary text-lg">{story.title}</h2>
-					<p class="text-sm leading-relaxed line-clamp-5">{story.content}</p>
+			<div
+				class="card border border-base-300 shadow-sm hover:shadow-md transition duration-300 bg-base-100 rounded-xl h-full"
+			>
+				<div class="card-body p-6">
+					<h2 class="text-lg font-semibold text-primary">{story.title}</h2>
+					<p class="text-sm text-base-content mt-2 leading-relaxed line-clamp-5">{story.content}</p>
 				</div>
 			</div>
 		{/each}
 	</section>
 
-	<div class="text-center mt-12">
-		<button on:click={() => (showModal = true)} class="btn btn-primary btn-wide rounded-full">
+	<!-- Button -->
+	<div class="text-center mt-16">
+		<button
+			on:click={() => (showModal = true)}
+			class="btn btn-primary btn-wide rounded-full text-white"
+		>
 			✍️ 사연 쓰러 가기
 		</button>
 	</div>
