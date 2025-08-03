@@ -1,5 +1,13 @@
 <script>
 	import Barcode0 from '$components/barcodes/Barcode0.svelte';
+
+	export let song = '';
+	export let location = '';
+	export let image = '';
+	export let emotion = '';
+	export let comment = '';
+	export let datetime = '';
+	export let nickname = '🍀멜로버🍀';
 </script>
 
 <div class="ticket --flex-column">
@@ -23,7 +31,7 @@
 				</defs>
 				<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCd0)" />
 			</svg>
-			<span class="song-title">고백</span>
+			<span class="song-title">{song}</span>
 		</div>
 		<div class="location">
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
@@ -42,14 +50,15 @@
 					/>
 				</g>
 			</svg>
-			<span>서울시 강서구</span>
+			{#if location}
+				<span>{location}</span>
+			{/if}
 		</div>
-		<img
-			src="https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-			alt="Melomance ticket"
-		/>
-		<div class="emotion">💞 설렘</div>
-		<div class="comment">지하철에서 듣기 너무 좋은 노래였다.</div>
+		<img src={image} alt="Melomance ticket" />
+		{#if emotion}
+			<div class="emotion">{emotion}</div>
+		{/if}
+		<div class="comment">{comment}</div>
 	</div>
 
 	<div class="rip"></div>
@@ -58,8 +67,8 @@
 			<Barcode0 />
 		</div>
 		<div class="info-right">
-			<div class="datetime">2025.08.03 14:00</div>
-			<div class="submitted-by">SEOHEY</div>
+			<div class="datetime">{datetime}</div>
+			<div class="submitted-by">{nickname}</div>
 		</div>
 	</div>
 </div>

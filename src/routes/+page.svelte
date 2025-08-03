@@ -1,17 +1,22 @@
 <script>
 	import Ticket from '$components/Ticket.svelte';
+
+	const tickets = Array.from({ length: 9 }, (_, i) => ({
+		song: '고백',
+		location: '서울시 강서구',
+		image:
+			'https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0',
+		emotion: '💞 설렘',
+		comment: '지하철에서 듣기 너무 좋은 노래였다.',
+		datetime: '2025.08.03 14:00',
+		nickname: 'SEOHEY'
+	}));
 </script>
 
 <div class="container">
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
-	<Ticket />
+	{#each tickets as ticket}
+		<Ticket {...ticket} />
+	{/each}
 </div>
 
 <style>
