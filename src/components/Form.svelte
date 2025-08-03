@@ -45,7 +45,7 @@
 			<textarea id="comment" name="comment" rows="4" bind:value={comment}></textarea>
 
 			<div class="form-buttons">
-				<button type="submit">기록</button>
+				<button type="submit">기록하기</button>
 				<button type="button" onclick={onClose}>닫기</button>
 			</div>
 		</form>
@@ -67,9 +67,25 @@
 
 	.modal-content {
 		background: white;
-		padding: 2rem;
-		border-radius: 8px;
+		border-radius: 10px;
+		padding: 2.5rem 2rem;
+		width: 80%;
+		max-width: 500px;
 		min-width: 300px;
+		box-sizing: border-box;
+		box-shadow:
+			0 4px 16px rgba(0, 0, 0, 0.1),
+			0 2px 8px rgba(0, 0, 0, 0.05);
+		color: #333;
+		border: none;
+	}
+
+	h2 {
+		text-align: center;
+		margin-bottom: 1.5rem;
+		font-size: 1.6rem;
+		color: #222;
+		font-weight: 600;
 	}
 
 	.form-buttons {
@@ -82,12 +98,60 @@
 	input,
 	textarea {
 		width: 100%;
-		margin-bottom: 1rem;
-		padding: 0.4rem;
-		font-size: 1rem;
+		margin-bottom: 1.2rem;
+		padding: 0.9rem 1rem;
+		font-size: 0.95rem;
+		border: none;
+		background-color: #f8f8f8;
+		color: #333;
+		border-radius: 999px;
+		outline: none;
+		box-sizing: border-box;
+		box-shadow: inset 0 0 0 1px #eee;
+	}
+
+	textarea {
+		border-radius: 1rem;
+		resize: none;
+	}
+
+	input::placeholder,
+	textarea::placeholder {
+		color: #bbb;
 	}
 
 	label {
-		font-weight: bold;
+		color: #777;
+		font-size: 0.75rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		display: block;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.form-buttons button {
+		width: 100px;
+		padding: 0.7rem;
+		font-size: 0.95rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		border-radius: 999px;
+		border: none;
+		color: white;
+		background: linear-gradient(to right, #faacae, #fbcdc1);
+	}
+
+	.form-buttons button:hover {
+		filter: brightness(1.1);
+	}
+
+	.form-buttons button[type='button'] {
+		background: #eee;
+		color: #555;
+	}
+
+	.form-buttons button[type='button']:hover {
+		background: #ddd;
 	}
 </style>
