@@ -1,7 +1,14 @@
 <script lang="ts">
 	import favicon from '$lib/assets/melog_icon.svg';
-
+	import Form from '$components/Form.svelte';
+	import { writable } from 'svelte/store';
+	const showForm = writable(false);
 	let { children } = $props();
+
+	const handleClick = () => {
+		showForm.set(true);
+		console.log('afafa', showForm);
+	};
 </script>
 
 <svelte:head>
@@ -12,10 +19,20 @@
 	<header class="melog-header">
 		<h1>melog</h1>
 		<p class="subtitle">멜로망스로 물든 감정의 기록</p>
+		<button onclick={() => showForm.set(true)} class="record-button">기록하기</button>
 	</header>
 
 	<main>
 		{@render children?.()}
+		{#if $showForm}
+			<Form
+				onClose={() => showForm.set(false)}
+				onSubmit={(ticket) => {
+					console.log('submitted ticket:', ticket);
+					showForm.set(false);
+				}}
+			/>
+		{/if}
 	</main>
 
 	<footer class="melog-footer">
@@ -115,6 +132,22 @@
 		margin-top: 0.3rem;
 		font-size: 0.9rem;
 		color: #999;
+	}
+
+	.record-button {
+		margin-top: 0.5rem;
+		background-color: #000;
+		color: #fff;
+		padding: 0.4rem 1rem;
+		border: none;
+		border-radius: 4px;
+		font-family: inherit;
+		font-size: 0.9rem;
+		cursor: pointer;
+	}
+
+	.record-button:hover {
+		background-color: #333;
 	}
 
 	.page-container {
