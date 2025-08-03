@@ -31,10 +31,13 @@
 
 <style>
 	.ticket {
-		display: block;
+		display: flex;
+		flex-direction: column;
 		width: 255px;
+		max-width: 255px;
+		min-width: 0;
+		/* max-width: 255px; */
 		filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
-		margin: 0 auto;
 	}
 
 	.ticket .top,
