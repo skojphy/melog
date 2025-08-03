@@ -1,0 +1,65 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	id="barcode"
+	width="120px"
+	height="40px"
+	x="0px"
+	y="0px"
+	viewBox="0 0 340 120"
+	version="1.1"
+	style="transform: translate(0px, 0px);"
+>
+	<rect x="0" y="0" width="340" height="120" style="fill:transparent;" />
+	<g xmlns="http://www.w3.org/2000/svg" transform="translate(10, 10)" style="fill:#000000;"
+		><rect x="0" y="0" width="2" height="100" />
+		<rect x="8" y="0" width="2" height="100" />
+		<rect x="12" y="0" width="6" height="100" />
+		<rect x="20" y="0" width="6" height="100" />
+		<rect x="28" y="0" width="2" height="100" />
+		<rect x="32" y="0" width="6" height="100" />
+		<rect x="40" y="0" width="2" height="100" />
+		<rect x="48" y="0" width="2" height="100" />
+		<rect x="52" y="0" width="2" height="100" />
+		<rect x="56" y="0" width="6" height="100" />
+		<rect x="64" y="0" width="2" height="100" />
+		<rect x="68" y="0" width="6" height="100" />
+		<rect x="80" y="0" width="2" height="100" />
+		<rect x="84" y="0" width="6" height="100" />
+		<rect x="92" y="0" width="2" height="100" />
+		<rect x="96" y="0" width="2" height="100" />
+		<rect x="100" y="0" width="6" height="100" />
+		<rect x="112" y="0" width="2" height="100" />
+		<rect x="116" y="0" width="6" height="100" />
+		<rect x="124" y="0" width="2" height="100" />
+		<rect x="128" y="0" width="6" height="100" />
+		<rect x="136" y="0" width="2" height="100" />
+		<rect x="144" y="0" width="2" height="100" />
+		<rect x="148" y="0" width="2" height="100" />
+		<rect x="152" y="0" width="6" height="100" />
+		<rect x="160" y="0" width="2" height="100" />
+		<rect x="164" y="0" width="2" height="100" />
+		<rect x="172" y="0" width="6" height="100" />
+		<rect x="180" y="0" width="6" height="100" />
+		<rect x="188" y="0" width="2" height="100" />
+		<rect x="192" y="0" width="6" height="100" />
+		<rect x="200" y="0" width="2" height="100" />
+		<rect x="208" y="0" width="2" height="100" />
+		<rect x="212" y="0" width="6" height="100" />
+		<rect x="220" y="0" width="2" height="100" />
+		<rect x="224" y="0" width="2" height="100" />
+		<rect x="228" y="0" width="6" height="100" />
+		<rect x="240" y="0" width="2" height="100" />
+		<rect x="244" y="0" width="2" height="100" />
+		<rect x="248" y="0" width="6" height="100" />
+		<rect x="256" y="0" width="2" height="100" />
+		<rect x="260" y="0" width="6" height="100" />
+		<rect x="272" y="0" width="6" height="100" />
+		<rect x="280" y="0" width="2" height="100" />
+		<rect x="284" y="0" width="2" height="100" />
+		<rect x="288" y="0" width="2" height="100" />
+		<rect x="296" y="0" width="2" height="100" />
+		<rect x="300" y="0" width="6" height="100" />
+		<rect x="308" y="0" width="6" height="100" />
+		<rect x="316" y="0" width="2" height="100" />
+	</g>
+</svg>
