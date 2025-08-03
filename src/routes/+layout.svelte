@@ -4,11 +4,6 @@
 	import { writable } from 'svelte/store';
 	const showForm = writable(false);
 	let { children } = $props();
-
-	const handleClick = () => {
-		showForm.set(true);
-		console.log('afafa', showForm);
-	};
 </script>
 
 <svelte:head>
@@ -25,13 +20,7 @@
 	<main>
 		{@render children?.()}
 		{#if $showForm}
-			<Form
-				onClose={() => showForm.set(false)}
-				onSubmit={(ticket) => {
-					console.log('submitted ticket:', ticket);
-					showForm.set(false);
-				}}
-			/>
+			<Form onClose={() => showForm.set(false)} onSubmit={() => showForm.set(false)} />
 		{/if}
 	</main>
 
