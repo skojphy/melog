@@ -63,15 +63,21 @@
 
 <style>
 	.container {
-		column-count: 3;
+		column-count: 4;
 		column-gap: 1.5rem;
-		max-width: 1200px;
+		max-width: 1600px;
 		margin: 0 auto;
 	}
 
 	.container :global(.ticket) {
 		break-inside: avoid;
 		margin-bottom: 1.5rem;
+	}
+
+	@media (max-width: 1280px) {
+		.container {
+			column-count: 3;
+		}
 	}
 
 	@media (max-width: 1024px) {
