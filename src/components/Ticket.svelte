@@ -4,28 +4,43 @@
 
 <div class="ticket --flex-column">
 	<div class="top --flex-column">
-		<div class="bandname -bold">melog</div>
-		<div class="songName">고백</div>
+		<div class="title">
+			<svg
+				class="rotating-icon"
+				xmlns="http://www.w3.org/2000/svg"
+				width="28"
+				height="28"
+				viewBox="0 0 48 48"
+			>
+				<defs>
+					<mask id="ipTCd0">
+						<g fill="none" stroke="#fff" stroke-width="3">
+							<circle cx="24" cy="24" r="18" />
+							<path stroke-linecap="round" d="M13 24c0-6.075 4.925-11 11-11" />
+							<circle cx="24" cy="24" r="5" fill="#555555" />
+						</g>
+					</mask>
+				</defs>
+				<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCd0)" />
+			</svg>
+			<span class="song-title">고백</span>
+		</div>
+		<p class="location">📍 서울시 강서구</p>
 		<img
 			src="https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 			alt="Melomance ticket"
 		/>
-		<div class="deetz --flex-row-j!sb">
-			<div class="event --flex-column">
-				<div class="date">2025.08.03</div>
-				<div class="location -bold">📍지하철 안</div>
-			</div>
-			<div class="price --flex-column">
-				<div class="label">감정</div>
-				<div class="cost -bold">💞 설렘</div>
-			</div>
-		</div>
+		<div class="emotion">💞 설렘</div>
+		<div class="comment">지하철에서 듣기 너무 좋은 노래였다.</div>
 	</div>
 
 	<div class="rip"></div>
-	<div class="bottom --flex-row-j!sb">
+	<div class="bottom">
 		<Barcode0 />
-		<div class="submitted-by">seohey</div>
+		<div class="info-right">
+			<div class="datetime">2025.08.03 14:00</div>
+			<div class="submitted-by">혜연</div>
+		</div>
 	</div>
 </div>
 
@@ -33,10 +48,9 @@
 	.ticket {
 		display: flex;
 		flex-direction: column;
-		width: 255px;
-		max-width: 255px;
+		width: 260px;
+		max-width: 260px;
 		min-width: 0;
-		/* max-width: 255px; */
 		filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
 	}
 
@@ -53,56 +67,68 @@
 
 	.ticket .bottom {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: row;
+		align-items: stretch;
+		gap: 8px;
+		padding: 10px 12px;
 		border-bottom-right-radius: 5px;
 		border-bottom-left-radius: 5px;
-		padding: 10px 18px;
 	}
 
-	.ticket .bandname,
-	.ticket .songName,
-	.ticket .deetz,
+	.ticket .bottom .info-right {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: space-between;
+		width: 75%;
+	}
+
 	.ticket .submitted-by {
-		padding-left: 18px;
-		padding-right: 18px;
-	}
-
-	.ticket .bandname {
-		padding-top: 18px;
-	}
-
-	.ticket .deetz {
-		padding-bottom: 18px;
+		font-size: 12px;
+		color: #666;
 	}
 
 	.ticket img {
 		display: block;
 		width: 100%;
 		object-fit: cover;
-		padding: 18px 0;
+		padding: 10px 0;
 	}
 
-	.ticket .deetz {
+	.ticket .title {
+		padding: 18px 18px 6px;
+		font-size: 16px;
 		display: flex;
-		justify-content: space-between;
-		padding-bottom: 10px !important;
+		align-items: center;
+		gap: 6px;
 	}
 
-	.ticket .event,
-	.ticket .price {
-		display: flex;
-		flex-direction: column;
+	.location {
+		padding: 0 18px;
+		font-size: 12px;
+		color: #555;
+		line-height: 1.4;
+		margin: 0;
 	}
 
-	.ticket .label {
-		font-size: 10px;
-		text-transform: uppercase;
+	.ticket .datetime {
+		font-size: 12px;
 		color: #666;
+		padding-bottom: 2px;
 	}
 
-	.ticket .-bold {
+	.ticket .emotion {
+		padding: 0px 18px 6px;
 		font-weight: bold;
+		color: #333;
+	}
+
+	.ticket .comment {
+		padding: 0 18px 18px;
+		font-size: 13px;
+		color: #444;
+		line-height: 1.4;
+		white-space: pre-line;
 	}
 
 	.ticket .rip {
@@ -142,9 +168,23 @@
 		transform: translate(-50%, -50%) rotate(225deg);
 	}
 
-	.ticket .submitted-by {
-		font-size: 12px;
-		color: #666;
-		margin-left: auto;
+	.ticket .rotating-icon {
+		display: flex;
+		align-items: center;
+		animation: rotate360 3s linear infinite;
+		font-weight: normal;
+	}
+
+	@keyframes rotate360 {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+	.song-title {
+		font-weight: bold;
+		font-size: 16px;
 	}
 </style>

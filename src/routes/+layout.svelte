@@ -11,7 +11,7 @@
 <div class="page-container">
 	<header class="melog-header">
 		<h1>melog</h1>
-		<p class="subtitle">여기에 설명을 적을까</p>
+		<p class="subtitle">멜로망스로 물든 감정의 기록</p>
 	</header>
 
 	<main>
@@ -88,7 +88,7 @@
 <style>
 	:global(body) {
 		font-family: 'Courier New', Courier, monospace;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.04em;
 		background-color: #fff;
 		color: #000;
 		margin: 0;
@@ -112,9 +112,9 @@
 	}
 
 	.melog-header .subtitle {
-		margin-top: 0.5rem;
-		font-size: 1.1rem;
-		color: #666;
+		margin-top: 0.3rem;
+		font-size: 0.9rem;
+		color: #999;
 	}
 
 	.page-container {
@@ -135,7 +135,7 @@
 		font-size: 0.9rem;
 		color: #222;
 		font-family: 'Courier New', Courier, monospace;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.04em;
 		padding-bottom: 0.5rem;
 		background-color: #f5f5f5;
 	}
