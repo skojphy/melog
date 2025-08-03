@@ -1,16 +1,5 @@
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	id="barcode"
-	width="120px"
-	height="40px"
-	x="0px"
-	y="0px"
-	viewBox="0 0 340 120"
-	version="1.1"
-	style="transform: translate(0px, 0px);"
->
-	<rect x="0" y="0" width="340" height="120" style="fill:transparent;" />
-	<g xmlns="http://www.w3.org/2000/svg" transform="translate(10, 10)" style="fill:#000000;"
+<svg xmlns="http://www.w3.org/2000/svg" id="barcode" viewBox="0 0 328 100">
+	<g style="fill:#000000;"
 		><rect x="0" y="0" width="2" height="100" />
 		<rect x="8" y="0" width="2" height="100" />
 		<rect x="12" y="0" width="6" height="100" />
