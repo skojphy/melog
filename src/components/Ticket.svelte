@@ -8,8 +8,8 @@
 			<svg
 				class="rotating-icon"
 				xmlns="http://www.w3.org/2000/svg"
-				width="28"
-				height="28"
+				width="26"
+				height="26"
 				viewBox="0 0 48 48"
 			>
 				<defs>
@@ -25,7 +25,25 @@
 			</svg>
 			<span class="song-title">고백</span>
 		</div>
-		<p class="location">📍 서울시 강서구</p>
+		<div class="location">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+				<g
+					fill="none"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="1.3"
+				>
+					<path
+						d="M13.618 21.367A2.37 2.37 0 0 1 12 22a2.37 2.37 0 0 1-1.617-.633C6.412 17.626 1.09 13.447 3.685 7.38C5.09 4.1 8.458 2 12.001 2s6.912 2.1 8.315 5.38c2.592 6.06-2.717 10.259-6.698 13.987"
+					/>
+					<path
+						d="M9.388 7.831c.939-.548 1.758-.327 2.25.025c.202.144.303.216.362.216c.06 0 .16-.072.362-.216c.492-.352 1.311-.573 2.25-.025c1.232.72 1.51 3.094-1.33 5.097c-.542.381-.813.572-1.282.572s-.74-.19-1.281-.572C7.878 10.925 8.156 8.55 9.389 7.83"
+					/>
+				</g>
+			</svg>
+			<span>서울시 강서구</span>
+		</div>
 		<img
 			src="https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 			alt="Melomance ticket"
@@ -39,7 +57,7 @@
 		<Barcode0 />
 		<div class="info-right">
 			<div class="datetime">2025.08.03 14:00</div>
-			<div class="submitted-by">혜연</div>
+			<div class="submitted-by">SEOHEY</div>
 		</div>
 	</div>
 </div>
@@ -78,14 +96,15 @@
 	.ticket .bottom .info-right {
 		display: flex;
 		flex-direction: column;
-		align-items: stretch;
-		justify-content: space-between;
-		width: 75%;
+		align-items: flex-start;
+		justify-content: center;
+		width: auto;
 	}
 
 	.ticket .submitted-by {
 		font-size: 12px;
 		color: #666;
+		text-align: left;
 	}
 
 	.ticket img {
@@ -104,6 +123,10 @@
 	}
 
 	.location {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 4px;
 		padding: 0 18px;
 		font-size: 12px;
 		color: #555;
@@ -115,6 +138,7 @@
 		font-size: 12px;
 		color: #666;
 		padding-bottom: 2px;
+		text-align: left;
 	}
 
 	.ticket .emotion {
