@@ -54,7 +54,9 @@
 
 	<div class="rip"></div>
 	<div class="bottom">
-		<Barcode0 />
+		<div class="barcode-wrapper">
+			<Barcode0 />
+		</div>
 		<div class="info-right">
 			<div class="datetime">2025.08.03 14:00</div>
 			<div class="submitted-by">SEOHEY</div>
@@ -96,7 +98,7 @@
 	.ticket .bottom .info-right {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: stretch;
 		justify-content: center;
 		width: auto;
 	}
@@ -210,5 +212,12 @@
 	.song-title {
 		font-weight: bold;
 		font-size: 16px;
+	}
+
+	.barcode-wrapper {
+		width: 43%;
+		max-width: 150px;
+		display: flex;
+		align-items: center;
 	}
 </style>
