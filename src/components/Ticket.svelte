@@ -1,22 +1,53 @@
-<script>
+<script lang="ts">
 	import Barcode0 from '$components/barcodes/Barcode0.svelte';
 	import { supabase } from '$lib/supabaseClient';
-	export let songId = 0;
+	const { songId, location, emotion, comment, datetime } = $props();
 
-	export let location = '';
-	export let emotion = '';
-	export let comment = '';
-	export let datetime = '';
-	export let nickname = '🍀멜로버🍀';
+	let nickname: string = '🍀멜로버🍀';
 
-	let songTitle = '';
-	let image = '';
-	let streamUrl = '';
+	let songTitle: string = $state('');
+	let image: string = $state('');
+	let streamUrl: string = $state('');
 
-	/**
-	 * @param {number} id
-	 */
-	const fetchSongMeta = async (id) => {
+	let titleWrapperEl: HTMLDivElement | null = null;
+	let titleTextEl: HTMLElement | null = $state(null);
+	let isOverflowing: boolean = $state(false);
+	let overflowShift: number = $state(0);
+	let trackEl: HTMLDivElement | null = null;
+	let marqueeDuration: string = $state('4s');
+
+	const checkOverflow = (): void => {
+		if (!titleWrapperEl || !titleTextEl) return;
+		const wrapW = titleWrapperEl.clientWidth;
+		const textW = titleTextEl.scrollWidth;
+		isOverflowing = textW > wrapW;
+		overflowShift = Math.max(0, textW - wrapW);
+		const distance = Math.max(0, textW - wrapW);
+		const seconds = Math.min(20, Math.max(6, distance / 15));
+		marqueeDuration = `${seconds}s`;
+
+		if (trackEl && isOverflowing) {
+			trackEl.classList.remove('play');
+			void trackEl.offsetWidth;
+			trackEl.classList.add('play');
+		}
+	};
+
+	$effect(() => {
+		checkOverflow();
+
+		const handler = () => checkOverflow();
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', handler);
+		}
+		return () => {
+			if (typeof window !== 'undefined') {
+				window.removeEventListener('resize', handler);
+			}
+		};
+	});
+
+	const fetchSongMeta = async (id: number): Promise<void> => {
 		const { data, error } = await supabase
 			.from('songs')
 			.select('image_url, stream_url, title, album')
@@ -50,7 +81,11 @@
 		if (!songTitle && data.title) songTitle = data.title;
 	};
 
-	$: songId && fetchSongMeta(songId);
+	$effect(() => {
+		if (songId) {
+			fetchSongMeta(songId);
+		}
+	});
 </script>
 
 <div class="ticket --flex-column">
@@ -74,13 +109,38 @@
 				</defs>
 				<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCd0)" />
 			</svg>
-			{#if streamUrl}
-				<a href={streamUrl} target="_blank" rel="noopener" class="song-title song-link"
-					>{songTitle}</a
+			<div class="title-text" bind:this={titleWrapperEl}>
+				<div
+					class="marquee-track {isOverflowing ? 'play' : ''}"
+					bind:this={trackEl}
+					style={`--duration:${marqueeDuration}; --textW:${titleTextEl ? titleTextEl.scrollWidth : 0}px;`}
 				>
-			{:else}
-				<span class="song-title">{songTitle}</span>
-			{/if}
+					{#if streamUrl}
+						<a
+							bind:this={titleTextEl}
+							href={streamUrl}
+							target="_blank"
+							rel="noopener"
+							class="song-title song-link">{songTitle}</a
+						>
+						{#if isOverflowing}
+							<a
+								href={streamUrl}
+								target="_blank"
+								rel="noopener"
+								class="song-title song-link clone"
+								tabindex="-1"
+								aria-hidden="true">{songTitle}</a
+							>
+						{/if}
+					{:else}
+						<span bind:this={titleTextEl} class="song-title">{songTitle}</span>
+						{#if isOverflowing}
+							<span class="song-title clone" aria-hidden="true">{songTitle}</span>
+						{/if}
+					{/if}
+				</div>
+			</div>
 		</div>
 		<div class="location">
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
@@ -103,7 +163,7 @@
 				<span>{location}</span>
 			{/if}
 		</div>
-		<img src={image} alt="Melomance ticket" />
+		<img src={image} alt="Melomance ticket" on:load={checkOverflow} />
 		{#if emotion}
 			<div class="emotion">{emotion}</div>
 		{/if}
@@ -180,6 +240,13 @@
 		display: flex;
 		align-items: center;
 		gap: 6px;
+	}
+
+	.title-text {
+		width: 180px;
+		overflow: hidden;
+		display: inline-block;
+		vertical-align: middle;
 	}
 
 	.location {
@@ -267,9 +334,40 @@
 			transform: rotate(360deg);
 		}
 	}
+
 	.song-title {
 		font-weight: bold;
 		font-size: 16px;
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		direction: ltr;
+		vertical-align: middle;
+	}
+
+	.marquee-track {
+		display: inline-flex;
+		align-items: center;
+		transform: translateX(0);
+		gap: 0;
+	}
+
+	.marquee-track.play {
+		gap: 24px;
+		animation: marqueeX var(--duration, 20s) linear infinite;
+	}
+
+	.song-title.clone {
+		pointer-events: none;
+	}
+
+	@keyframes marqueeX {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(calc(-1 * (var(--textW, 0px) + 24px)));
+		}
 	}
 
 	.barcode-wrapper {
