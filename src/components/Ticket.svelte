@@ -163,7 +163,7 @@
 				<span>{location}</span>
 			{/if}
 		</div>
-		<img src={image} alt="Melomance ticket" on:load={checkOverflow} />
+		<img src={image} alt="Melomance ticket" onload={checkOverflow} />
 		{#if emotion}
 			<div class="emotion">{emotion}</div>
 		{/if}
