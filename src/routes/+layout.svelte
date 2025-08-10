@@ -101,33 +101,37 @@
 	}
 
 	.melog-header {
-		text-align: center;
-		padding: 2rem 1rem 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 1rem;
 		background: linear-gradient(to right, #ffe3ec, #e6f0ff);
 		border-bottom: 1px solid #ddd;
 	}
 
 	.melog-header h1 {
-		font-size: 1.6rem;
+		font-size: 1rem;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		border-top: 1px solid #000;
-		border-bottom: 1px solid #000;
 		display: inline-block;
 		padding: 0.3em 1em;
+		border-top: none;
+		border-bottom: none;
+		margin: 0;
 	}
 
 	.melog-header .subtitle {
-		margin-top: 0.3rem;
-		font-size: 0.9rem;
+		display: inline;
+		margin-left: 0.5rem;
+		font-size: 0.8rem;
 		color: #999;
 	}
 
 	.record-button {
-		margin-top: 0.5rem;
+		margin: 0 0 0 0.5rem;
 		background-color: #000;
 		color: #fff;
-		padding: 0.4rem 1rem;
+		padding: 0.3rem 0.8rem;
 		border: none;
 		border-radius: 4px;
 		font-family: inherit;
