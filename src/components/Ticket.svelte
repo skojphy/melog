@@ -1,13 +1,56 @@
 <script>
 	import Barcode0 from '$components/barcodes/Barcode0.svelte';
+	import { supabase } from '$lib/supabaseClient';
+	export let songId = 0;
 
-	export let song = '';
 	export let location = '';
-	export let image = '';
 	export let emotion = '';
 	export let comment = '';
 	export let datetime = '';
 	export let nickname = '🍀멜로버🍀';
+
+	let songTitle = '';
+	let image = '';
+	let streamUrl = '';
+
+	/**
+	 * @param {number} id
+	 */
+	const fetchSongMeta = async (id) => {
+		const { data, error } = await supabase
+			.from('songs')
+			.select('image_url, stream_url, title, album')
+			.eq('id', id)
+			.maybeSingle();
+
+		if (error) {
+			console.error('Ticket: failed to fetch song meta', error);
+			return;
+		}
+		if (!data) return;
+
+		if (data.image_url) image = data.image_url;
+
+		if (data.stream_url) {
+			let url = '';
+			if (typeof data.stream_url === 'string') {
+				try {
+					const parsed = JSON.parse(data.stream_url);
+					url = parsed?.spotify?.url || parsed?.url || '';
+					if (!url && typeof parsed === 'string') url = parsed;
+				} catch (_e) {
+					url = data.stream_url;
+				}
+			} else if (typeof data.stream_url === 'object') {
+				url = data.stream_url?.spotify?.url || data.stream_url?.url || '';
+			}
+			if (url) streamUrl = url;
+		}
+
+		if (!songTitle && data.title) songTitle = data.title;
+	};
+
+	$: songId && fetchSongMeta(songId);
 </script>
 
 <div class="ticket --flex-column">
@@ -31,7 +74,13 @@
 				</defs>
 				<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCd0)" />
 			</svg>
-			<span class="song-title">{song}</span>
+			{#if streamUrl}
+				<a href={streamUrl} target="_blank" rel="noopener" class="song-title song-link"
+					>{songTitle}</a
+				>
+			{:else}
+				<span class="song-title">{songTitle}</span>
+			{/if}
 		</div>
 		<div class="location">
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
@@ -228,5 +277,15 @@
 		max-width: 150px;
 		display: flex;
 		align-items: center;
+	}
+
+	.song-link {
+		color: inherit;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.song-link:hover {
+		text-decoration: underline;
 	}
 </style>
