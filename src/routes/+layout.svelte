@@ -2,6 +2,7 @@
 	import favicon from '$lib/assets/melog_icon.svg';
 	import Form from '$components/Form.svelte';
 	import { writable } from 'svelte/store';
+
 	const showForm = writable(false);
 	let { children } = $props();
 </script>
