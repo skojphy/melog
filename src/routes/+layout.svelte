@@ -9,6 +9,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta name="robots" content="noindex, nofollow" />
+	<!-- TODO: 제거 -->
 </svelte:head>
 
 <div class="page-container">
