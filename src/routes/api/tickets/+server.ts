@@ -7,7 +7,6 @@ export const GET = async () => {
         .select('*')
         .order('created_at', { ascending: false });
 
-
     if (error) {
         console.error('Supabase error:', error);
         return json({ error: 'Failed to fetch tickets' }, { status: 500 });

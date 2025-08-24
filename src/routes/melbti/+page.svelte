@@ -164,8 +164,15 @@
 	.melbti-page {
 		background: linear-gradient(135deg, #fde2e4 0%, #fff5f5 40%, #ffffff 100%);
 		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
 	}
 	.container {
-		position: relative;
+		width: 100%;
+		max-width: 768px;
+		padding: 0 1.25rem;
 	}
 </style>
