@@ -1,53 +1,36 @@
-<script>
+<script lang="ts">
 	import Ticket from '$components/Ticket.svelte';
+	import { onMount } from 'svelte';
 
-	const tickets = [
-		{
-			songId: 6,
-			location: '서울시 강서구',
-			emotion: '💞 설렘',
-			comment: '지하철에서 듣기 너무 좋은 노래였다.',
-			datetime: '2025.08.03 14:00',
-			nickname: 'SEOHEY'
-		},
-		{
-			songId: 1,
-			location: '부산 해운대구',
-			emotion: '🌊 평온',
-			comment: '파도 소리랑 너무 잘 어울리는 곡이었다.',
-			datetime: '2025.07.15 18:45',
-			nickname: 'LOVELYDAY'
-		},
-		{
-			songId: 2,
-			location: '제주도 서귀포시',
-			emotion: '☀️ 희망',
-			comment: '햇살이랑 함께 듣기 딱 좋은 멜로디!',
-			datetime: '2025.06.30 10:15',
-			nickname: 'SUNNYJ'
-		},
-		{
-			songId: 3,
-			location: '대전 중구',
-			emotion: '🍂 쓸쓸함',
-			comment: '작별 인사처럼 가슴에 남는 곡이었다.',
-			datetime: '2025.08.01 22:10',
-			nickname: 'NOSTALGIA'
-		},
-		{
-			songId: 4,
-			location: '서울시 마포구',
-			emotion: '🎁 감사',
-			comment: '지친 하루에 위로가 되었던 선물 같은 노래.',
-			datetime: '2025.08.02 20:00',
-			nickname: 'GRATEFULME'
+	type Ticket = {
+		id: number;
+		created_at: string;
+		song_id: number;
+		location: string;
+		emotion: string;
+		comment: string;
+	};
+
+	let tickets: Ticket[] = [];
+
+	onMount(async () => {
+		const res = await fetch('/api/tickets');
+		const result = await res.json();
+		if (result.data) {
+			tickets = result.data;
 		}
-	];
+	});
 </script>
 
 <div class="container">
 	{#each tickets as ticket}
-		<Ticket {...ticket} />
+		<Ticket
+			songId={ticket.song_id}
+			datetime={ticket.created_at}
+			location={ticket.location}
+			emotion={ticket.emotion}
+			comment={ticket.comment}
+		/>
 	{/each}
 </div>
 
