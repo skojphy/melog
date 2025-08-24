@@ -7,8 +7,8 @@
 	let comment = '';
 
 	let query = '';
-	let searchResults: { title: string }[] = [];
-	let selectedSong = '';
+	let searchResults: { title: string; album: string; image_url: string }[] = [];
+	let selectedSong: { title: string; album: string; image_url: string } | null = null;
 	let searching = false;
 
 	const handleSearch = async () => {
@@ -25,11 +25,12 @@
 
 	const handleSubmit = () => {
 		const newTicket = {
-			song: selectedSong,
+			song: selectedSong?.title || '',
 			location,
 			emotion,
 			comment,
 			image:
+				selectedSong?.image_url ||
 				'https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0',
 			datetime: new Date().toISOString().slice(0, 16).replace('T', ' '),
 			nickname: '🍀멜로버🍀'
@@ -58,15 +59,40 @@
 				oninput={handleSearch}
 			/>
 
+			{#if selectedSong}
+				<div class="song-preview">
+					<img src={selectedSong.image_url} alt="cover" />
+					<div>
+						<p class="song-title">{selectedSong.title}</p>
+						<p class="album-title">{selectedSong.album}</p>
+					</div>
+				</div>
+			{/if}
+
 			{#if searching}
 				<p>검색 중...</p>
 			{:else if searchResults.length > 0}
-				<select bind:value={selectedSong} required>
-					<option value="" disabled selected>노래를 선택하세요</option>
+				<ul class="search-dropdown">
 					{#each searchResults as song}
-						<option value={song.title}>{song.title}</option>
+						<li>
+							<button
+								type="button"
+								class="search-result-button"
+								onclick={async () => {
+									const res = await fetch(
+										`/api/searchSong?q=${encodeURIComponent(song.title)}&mode=detail`
+									);
+									const result = await res.json();
+									selectedSong = result.data;
+									query = song.title;
+									searchResults = [];
+								}}
+							>
+								{song.title}
+							</button>
+						</li>
 					{/each}
-				</select>
+				</ul>
 			{:else if query}
 				<p>검색 결과 없음</p>
 			{/if}
@@ -146,25 +172,6 @@
 		box-shadow: inset 0 0 0 1px #eee;
 	}
 
-	select {
-		width: 100%;
-		margin-bottom: 1.2rem;
-		padding: 0.9rem 1rem;
-		font-size: 0.95rem;
-		border: none;
-		background-color: #f8f8f8;
-		color: #333;
-		border-radius: 999px;
-		outline: none;
-		box-sizing: border-box;
-		box-shadow: inset 0 0 0 1px #eee;
-		appearance: none;
-		background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-		background-repeat: no-repeat;
-		background-position: right 1rem center;
-		background-size: 1rem;
-	}
-
 	textarea {
 		border-radius: 1rem;
 		resize: none;
@@ -208,5 +215,65 @@
 
 	.form-buttons button[type='button']:hover {
 		background: #ddd;
+	}
+
+	.search-dropdown {
+		background: white;
+		border: 1px solid #eee;
+		border-radius: 1rem;
+		margin-top: 0.5rem;
+		margin-bottom: 1rem;
+		padding: 0.5rem 0;
+		list-style: none;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	}
+
+	.search-dropdown li {
+		padding: 0;
+	}
+
+	.search-result-button {
+		width: 100%;
+		text-align: left;
+		background: none;
+		border: none;
+		padding: 0.7rem 1rem;
+		cursor: pointer;
+		transition: background 0.2s;
+		font-size: 1rem;
+		color: #333;
+	}
+
+	.search-result-button:hover {
+		background: #f2f2f2;
+	}
+
+	.song-preview {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+		background: #f8f8f8;
+		border-radius: 1rem;
+		padding: 0.8rem 1rem;
+		box-shadow: inset 0 0 0 1px #eee;
+	}
+
+	.song-preview img {
+		width: 60px;
+		height: 60px;
+		object-fit: cover;
+		border-radius: 0.5rem;
+	}
+
+	.song-preview .song-title {
+		font-weight: 600;
+		color: #222;
+		margin-bottom: 0.2rem;
+	}
+
+	.song-preview .album-title {
+		color: #777;
+		font-size: 0.85rem;
 	}
 </style>
