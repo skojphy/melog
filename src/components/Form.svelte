@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ScoreIcon from './icons/score.svelte';
 	export let onClose: () => void;
 	export let onSubmit: (ticket: any) => void;
 
@@ -8,7 +9,7 @@
 
 	let query = '';
 	let searchResults: { title: string; album: string; image_url: string }[] = [];
-	let selectedSong: { title: string; album: string; image_url: string } | null = null;
+	let selectedSong: { title: string; album: string; image_url: string; id: number } | null = null;
 	let searching = false;
 
 	const handleSearch = async () => {
@@ -26,6 +27,7 @@
 	const handleSubmit = () => {
 		const newTicket = {
 			song: selectedSong?.title || '',
+			songId: selectedSong?.id || '',
 			location,
 			emotion,
 			comment,
@@ -50,14 +52,48 @@
 			}}
 		>
 			<label for="title">노래 검색</label>
-			<input
-				id="title"
-				name="title"
-				type="text"
-				bind:value={query}
-				placeholder="노래 제목 입력"
-				oninput={handleSearch}
-			/>
+			<div class="search-container">
+				<div class="search-box">
+					<input
+						type="text"
+						class="search-input"
+						placeholder="노래 제목 검색..."
+						bind:value={query}
+						oninput={handleSearch}
+					/>
+				</div>
+
+				{#if searching}
+					<p class="search-status">검색 중...</p>
+				{:else if searchResults.length > 0}
+					<div class="search-results">
+						{#each searchResults as song}
+							<button
+								type="button"
+								class="search-result-item"
+								onclick={async () => {
+									const res = await fetch(
+										`/api/songDetail?title=${encodeURIComponent(song.title)}`
+									);
+									const result = await res.json();
+									selectedSong = result?.data;
+									query = '';
+									searchResults = [];
+								}}
+							>
+								<div class="icon-text-wrapper">
+									<div class="score-icon">
+										<ScoreIcon />
+									</div>
+									<span class="song-title">{song.title}</span>
+								</div>
+							</button>
+						{/each}
+					</div>
+				{:else if query && !selectedSong}
+					<p class="search-status">검색 결과 없음</p>
+				{/if}
+			</div>
 
 			{#if selectedSong}
 				<div class="song-preview">
@@ -67,34 +103,6 @@
 						<p class="album-title">{selectedSong.album}</p>
 					</div>
 				</div>
-			{/if}
-
-			{#if searching}
-				<p>검색 중...</p>
-			{:else if searchResults.length > 0}
-				<ul class="search-dropdown">
-					{#each searchResults as song}
-						<li>
-							<button
-								type="button"
-								class="search-result-button"
-								onclick={async () => {
-									const res = await fetch(
-										`/api/searchSong?q=${encodeURIComponent(song.title)}&mode=detail`
-									);
-									const result = await res.json();
-									selectedSong = result.data;
-									query = song.title;
-									searchResults = [];
-								}}
-							>
-								{song.title}
-							</button>
-						</li>
-					{/each}
-				</ul>
-			{:else if query}
-				<p>검색 결과 없음</p>
 			{/if}
 
 			<label for="location">장소</label>
@@ -217,35 +225,57 @@
 		background: #ddd;
 	}
 
-	.search-dropdown {
+	.search-container {
+		position: relative;
+		margin-bottom: 1rem;
+	}
+
+	.search-box {
+		border: none;
+		border-radius: 6px;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: 0.75rem 1rem;
+		font-size: 0.95rem;
+		border: none;
+		outline: none;
+	}
+
+	.search-results {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
 		background: white;
 		border: 1px solid #eee;
-		border-radius: 1rem;
-		margin-top: 0.5rem;
-		margin-bottom: 1rem;
-		padding: 0.5rem 0;
-		list-style: none;
+		border-top: none;
+		max-height: 200px;
+		overflow-y: auto;
+		z-index: 10;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	}
 
-	.search-dropdown li {
-		padding: 0;
-	}
-
-	.search-result-button {
+	.search-result-item {
 		width: 100%;
 		text-align: left;
 		background: none;
 		border: none;
-		padding: 0.7rem 1rem;
+		padding: 0.75rem 1rem;
+		font-size: 0.95rem;
 		cursor: pointer;
 		transition: background 0.2s;
-		font-size: 1rem;
-		color: #333;
 	}
 
-	.search-result-button:hover {
-		background: #f2f2f2;
+	.search-result-item:hover {
+		background: #f3f4f6;
+	}
+
+	.search-status {
+		padding: 0.5rem;
+		font-size: 0.85rem;
+		color: #999;
 	}
 
 	.song-preview {
@@ -275,5 +305,23 @@
 	.song-preview .album-title {
 		color: #777;
 		font-size: 0.85rem;
+	}
+
+	.icon-text-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.score-icon {
+		width: 1.25rem;
+		height: 1.25rem;
+		flex-shrink: 0;
+	}
+
+	.song-title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 </style>
