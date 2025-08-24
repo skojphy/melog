@@ -2,14 +2,30 @@
 	export let onClose: () => void;
 	export let onSubmit: (ticket: any) => void;
 
-	let title = '';
 	let location = '';
 	let emotion = '';
 	let comment = '';
 
+	let query = '';
+	let searchResults: { title: string }[] = [];
+	let selectedSong = '';
+	let searching = false;
+
+	const handleSearch = async () => {
+		if (!query.trim()) {
+			searchResults = [];
+			return;
+		}
+		searching = true;
+		const res = await fetch(`/api/searchSong?q=${encodeURIComponent(query)}`);
+		const result = await res.json();
+		searchResults = result?.data || [];
+		searching = false;
+	};
+
 	const handleSubmit = () => {
 		const newTicket = {
-			song: title,
+			song: selectedSong,
 			location,
 			emotion,
 			comment,
@@ -32,8 +48,28 @@
 				handleSubmit();
 			}}
 		>
-			<label for="title">노래 제목</label>
-			<input id="title" name="title" type="text" required bind:value={title} />
+			<label for="title">노래 검색</label>
+			<input
+				id="title"
+				name="title"
+				type="text"
+				bind:value={query}
+				placeholder="노래 제목 입력"
+				oninput={handleSearch}
+			/>
+
+			{#if searching}
+				<p>검색 중...</p>
+			{:else if searchResults.length > 0}
+				<select bind:value={selectedSong} required>
+					<option value="" disabled selected>노래를 선택하세요</option>
+					{#each searchResults as song}
+						<option value={song.title}>{song.title}</option>
+					{/each}
+				</select>
+			{:else if query}
+				<p>검색 결과 없음</p>
+			{/if}
 
 			<label for="location">장소</label>
 			<input id="location" name="location" type="text" required bind:value={location} />
@@ -108,6 +144,25 @@
 		outline: none;
 		box-sizing: border-box;
 		box-shadow: inset 0 0 0 1px #eee;
+	}
+
+	select {
+		width: 100%;
+		margin-bottom: 1.2rem;
+		padding: 0.9rem 1rem;
+		font-size: 0.95rem;
+		border: none;
+		background-color: #f8f8f8;
+		color: #333;
+		border-radius: 999px;
+		outline: none;
+		box-sizing: border-box;
+		box-shadow: inset 0 0 0 1px #eee;
+		appearance: none;
+		background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+		background-repeat: no-repeat;
+		background-position: right 1rem center;
+		background-size: 1rem;
 	}
 
 	textarea {
