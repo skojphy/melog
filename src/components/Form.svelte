@@ -34,7 +34,6 @@
 			image:
 				selectedSong?.image_url ||
 				'https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0',
-			datetime: new Date().toISOString().slice(0, 16).replace('T', ' '),
 			nickname: '🍀멜로버🍀'
 		};
 		onSubmit?.(newTicket);

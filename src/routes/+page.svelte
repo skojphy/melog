@@ -9,6 +9,7 @@
 		location: string;
 		emotion: string;
 		comment: string;
+		nickname: string;
 	};
 
 	let tickets: Ticket[] = [];
@@ -16,6 +17,7 @@
 	onMount(async () => {
 		const res = await fetch('/api/tickets');
 		const result = await res.json();
+
 		if (result.data) {
 			tickets = result.data;
 		}
@@ -26,10 +28,11 @@
 	{#each tickets as ticket}
 		<Ticket
 			songId={ticket.song_id}
-			datetime={ticket.created_at}
+			created_at={ticket.created_at}
 			location={ticket.location}
 			emotion={ticket.emotion}
 			comment={ticket.comment}
+			nickname={ticket.nickname}
 		/>
 	{/each}
 </div>

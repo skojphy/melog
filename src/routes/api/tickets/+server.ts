@@ -5,7 +5,8 @@ export const GET = async () => {
     const { data, error } = await supabase
         .from('tickets')
         .select('*')
-        .order('datetime', { ascending: false });
+        .order('created_at', { ascending: false });
+
 
     if (error) {
         console.error('Supabase error:', error);

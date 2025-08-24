@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Barcode0 from '$components/barcodes/Barcode0.svelte';
 	import { supabase } from '$lib/supabaseClient';
-	const { songId, location, emotion, comment, datetime } = $props();
-
-	let nickname: string = '🍀멜로버🍀';
+	const { songId, location, emotion, comment, created_at, nickname = '🍀멜로버🍀' } = $props();
 
 	let songTitle: string = $state('');
 	let image: string = $state('');
@@ -176,7 +174,18 @@
 			<Barcode0 />
 		</div>
 		<div class="info-right">
-			<div class="datetime">{datetime}</div>
+			<div class="datetime">
+				{new Date(created_at)
+					.toLocaleString('ko-KR', {
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+						hour: '2-digit',
+						minute: '2-digit',
+						hour12: false
+					})
+					.replace(/\.\s*/g, '.')}
+			</div>
 			<div class="submitted-by">{nickname}</div>
 		</div>
 	</div>
