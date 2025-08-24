@@ -241,6 +241,7 @@
 		font-size: 0.95rem;
 		border: none;
 		outline: none;
+		margin-bottom: 0;
 	}
 
 	.search-results {
@@ -250,7 +251,6 @@
 		right: 0;
 		background: white;
 		border: 1px solid #eee;
-		border-top: none;
 		max-height: 200px;
 		overflow-y: auto;
 		z-index: 10;
