@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ScoreIcon from './icons/score.svelte';
+	import { insertTicket } from '$lib/api/tickets';
 	export let onClose: () => void;
-	export let onSubmit: (ticket: any) => void;
 
 	let location = '';
 	let emotion = '';
@@ -24,20 +24,21 @@
 		searching = false;
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const newTicket = {
-			song: selectedSong?.title || '',
-			songId: selectedSong?.id || '',
+			song_id: selectedSong?.id ?? null,
 			location,
 			emotion,
 			comment,
-			image:
-				selectedSong?.image_url ||
-				'https://images.unsplash.com/photo-1464376810568-596bdd5a1897?q=80&w=2284&auto=format&fit=crop&ixlib=rb-4.1.0',
 			nickname: '🍀멜로버🍀'
 		};
-		onSubmit?.(newTicket);
-		onClose();
+
+		try {
+			await insertTicket(newTicket);
+			onClose();
+		} catch (error) {
+			console.error('Failed to submit ticket:', error);
+		}
 	};
 </script>
 
