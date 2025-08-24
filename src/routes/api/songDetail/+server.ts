@@ -2,16 +2,16 @@ import { json } from '@sveltejs/kit';
 import { supabase } from '$lib/supabaseClient';
 
 export const GET = async ({ url }) => {
-    const title = url.searchParams.get('title');
+    const id = url.searchParams.get('id');
 
-    if (!title) {
-        return json({ error: 'Missing title' }, { status: 400 });
+    if (!id) {
+        return json({ error: 'Missing id' }, { status: 400 });
     }
 
     const { data, error } = await supabase
         .from('songs')
-        .select('id, title, album, image_url, stream_url, duration')
-        .eq('title', title)
+        .select('*')
+        .eq('id', id)
         .single();
 
     if (error) {

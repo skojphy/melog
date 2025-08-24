@@ -20,7 +20,7 @@ export const GET = async ({ url }) => {
 
     const { data, error } = await supabase
         .from('songs')
-        .select('title')
+        .select('id, title')
         .ilike('title', `%${q}%`)
         .limit(10);
 
