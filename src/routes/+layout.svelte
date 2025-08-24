@@ -23,7 +23,7 @@
 	<main>
 		{@render children?.()}
 		{#if $showForm}
-			<Form onClose={() => showForm.set(false)} onSubmit={() => showForm.set(false)} />
+			<Form onClose={() => showForm.set(false)} />
 		{/if}
 	</main>
 
@@ -98,8 +98,6 @@
 	:global(body) {
 		font-family: 'Courier New', Courier, monospace;
 		letter-spacing: 0.04em;
-		background-color: #fff;
-		color: #000;
 		margin: 0;
 	}
 

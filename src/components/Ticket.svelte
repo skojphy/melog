@@ -199,6 +199,8 @@
 		max-width: 260px;
 		min-width: 0;
 		filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
+		font-family: 'Noto Sans KR', sans-serif;
+		letter-spacing: normal;
 	}
 
 	.ticket .top,
@@ -258,7 +260,7 @@
 		vertical-align: middle;
 	}
 
-	.location {
+	.ticket .location {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
