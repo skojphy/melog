@@ -57,15 +57,13 @@
 					<input
 						type="text"
 						class="search-input"
-						placeholder="노래 제목 검색..."
+						placeholder="노래 제목을 검색하세요."
 						bind:value={query}
 						oninput={handleSearch}
 					/>
 				</div>
 
-				{#if searching}
-					<p class="search-status">검색 중...</p>
-				{:else if searchResults.length > 0}
+				{#if searchResults.length > 0}
 					<div class="search-results">
 						{#each searchResults as song}
 							<button
@@ -90,8 +88,10 @@
 							</button>
 						{/each}
 					</div>
-				{:else if query && !selectedSong}
-					<p class="search-status">검색 결과 없음</p>
+				{:else if query && searchResults.length === 0}
+					<div class="search-results">
+						<p class="search-result-item">검색 결과 없음</p>
+					</div>
 				{/if}
 			</div>
 
@@ -270,12 +270,6 @@
 
 	.search-result-item:hover {
 		background: #f3f4f6;
-	}
-
-	.search-status {
-		padding: 0.5rem;
-		font-size: 0.85rem;
-		color: #999;
 	}
 
 	.song-preview {
