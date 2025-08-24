@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ScoreIcon from './icons/score.svelte';
-	import { insertTicket } from '$lib/api/tickets';
 	export let onClose: () => void;
 
 	let location = '';
@@ -8,7 +7,7 @@
 	let comment = '';
 
 	let query = '';
-	let searchResults: { title: string; album: string; image_url: string }[] = [];
+	let searchResults: { id: number; title: string; album: string; image_url: string }[] = [];
 	let selectedSong: { title: string; album: string; image_url: string; id: number } | null = null;
 	let searching = false;
 
@@ -34,8 +33,18 @@
 		};
 
 		try {
-			await insertTicket(newTicket);
-			onClose();
+			const res = await fetch('/api/tickets', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(newTicket)
+			});
+
+			const result = await res.json();
+			if (res.ok) {
+				onClose();
+			} else {
+				alert(result.error || '티켓 작성에 실패했습니다.');
+			}
 		} catch (error) {
 			console.error('Failed to submit ticket:', error);
 		}
@@ -70,9 +79,7 @@
 								type="button"
 								class="search-result-item"
 								onclick={async () => {
-									const res = await fetch(
-										`/api/songDetail?title=${encodeURIComponent(song.title)}`
-									);
+									const res = await fetch(`/api/songDetail?id=${song.id}`);
 									const result = await res.json();
 									selectedSong = result?.data;
 									query = '';
